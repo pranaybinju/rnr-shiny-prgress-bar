@@ -2,7 +2,6 @@ import React from 'react';
 import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import Animated, {Easing} from 'react-native-reanimated';
-import ShinyEffect from './ShinyEffect';
 
 const {
   Clock,
@@ -18,7 +17,7 @@ const {
   concat,
 } = Animated;
 
-function runTiming(clock, value, dest) {
+function runTranslationTiming(clock, value, dest) {
   const state = {
     finished: new Value(0),
     position: value,
@@ -54,22 +53,7 @@ function runTiming(clock, value, dest) {
   ]);
 }
 
-export default class ProgressBar extends React.Component {
-  static propTypes = {
-    progress: PropTypes.number.isRequired,
-    height: PropTypes.number,
-    color: PropTypes.string,
-    borderRadius: PropTypes.number,
-  };
-
-  static defaultProps = {
-    height: 50,
-    color: 'green',
-    borderRadius: 2,
-    width: 400,
-    backgroundColor: 'transparent',
-  };
-
+export default class ShinyEffect extends React.Component {
   clock = new Clock();
   progress = new Value(0);
   animation = new Value(0);
@@ -96,9 +80,7 @@ export default class ProgressBar extends React.Component {
           },
           this.props.style,
         ]}>
-        <Animated.View style={progressStyle}>
-          <ShinyEffect range={this.props.progress} />
-        </Animated.View>
+        <Animated.View style={progressStyle} />
       </View>
     );
   }

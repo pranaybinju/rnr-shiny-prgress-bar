@@ -23,17 +23,18 @@ export default class Progressable extends Component {
     this.timeout = setInterval(() => {
       this.setState(
         {
-          progress: progress,
+          progress: progress.toFixed(1),
         },
         () => {
-          progress += 0.1;
+          progress = progress + 0.1;
+          //progress = progress;
 
-          if (progress.toFixed(1) > 1) {
+          if (progress.toFixed(1) > 1.1) {
             clearInterval(this.timeout);
           }
         },
       );
-    }, 1000);
+    }, 5000);
   }
 
   render() {
