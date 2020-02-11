@@ -29,7 +29,7 @@ export default class Progressable extends Component {
           progress = progress + 0.1;
           //progress = progress;
 
-          if (progress.toFixed(1) > 1.1) {
+          if (progress > 1) {
             clearInterval(this.timeout);
           }
         },
@@ -51,7 +51,7 @@ export default class Progressable extends Component {
   }
 }
 
-const BOX_SIZE = 100;
+const BOX_SIZE = 50;
 
 const styles = StyleSheet.create({
   container: {
@@ -59,13 +59,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  box: {
-    width: BOX_SIZE,
-    height: BOX_SIZE,
-    borderColor: '#F5FCFF',
-    alignSelf: 'center',
-    backgroundColor: 'plum',
-    margin: BOX_SIZE / 2,
   },
 });

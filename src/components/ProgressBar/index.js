@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import Animated, {Easing} from 'react-native-reanimated';
-import ShinyEffect from './ShinyEffect';
+import ShinyEffect from '../ShinyEffect';
 
 const {
   Clock,
@@ -97,7 +97,9 @@ export default class ProgressBar extends React.Component {
           this.props.style,
         ]}>
         <Animated.View style={progressStyle}>
-          <ShinyEffect range={this.props.progress} />
+          {this.props.progress > 0 && (
+            <ShinyEffect width={400} progress={this.props.progress} />
+          )}
         </Animated.View>
       </View>
     );
