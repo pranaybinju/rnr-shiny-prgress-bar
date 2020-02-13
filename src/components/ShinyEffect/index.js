@@ -66,34 +66,27 @@ export default class ShinyEffect extends React.Component {
     this.transX = runTranslationTiming(
       new Clock(),
       new Value(0),
-      new Value(3600),
+      new Value(5000),
     );
   }
 
   componentDidMount() {
     this.range = interpolate(this.transX, {
-      inputRange: [0, 3000],
-      outputRange: [
-        0,
-        this.props.progress *
-          (this.props.width - (this.props.progress * 100) / 2),
-      ],
+      inputRange: [0, 5000],
+      outputRange: [0, this.props.progress * this.props.width],
       extrapolate: Animated.Extrapolate.CLAMP,
     });
   }
   componentDidUpdate() {
     this.range = interpolate(this.transX, {
-      inputRange: [0, 3000],
-      outputRange: [
-        0,
-        this.props.progress *
-          (this.props.width - (this.props.progress * 100) / 2),
-      ],
+      inputRange: [0, 5000],
+      outputRange: [0, this.props.progress * this.props.width],
       extrapolate: Animated.Extrapolate.CLAMP,
     });
   }
 
   render() {
+    // const translateStyle = concat(, '%');
     return (
       <Animated.View
         style={{
@@ -102,12 +95,13 @@ export default class ShinyEffect extends React.Component {
           bottom: 0,
           right: 0,
           left: 0,
+
           width: (this.props.progress * 100) / 2,
           transform: [{translateX: this.range}],
         }}>
         <LinearGradient
           style={{
-            width: (this.props.progress * 100) / 2,
+            width: this.props.progress * 100 * 0.9,
             height: 50,
 
             bottom: 0,
@@ -115,17 +109,10 @@ export default class ShinyEffect extends React.Component {
             left: 0,
           }}
           useAngle={true}
-          angle={45}
-          angleCenter={{x: 0.5, y: 0.5}}
+          angle={315}
           start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          colors={[
-            '#ffffff00',
-            '#ffffff20',
-            '#ffffffB3',
-            '#ffffff26',
-            '#ffffff00',
-          ]}></LinearGradient>
+          end={{x: 0, y: 1}}
+          colors={['#ffffff05', '#ffffffB3']}></LinearGradient>
       </Animated.View>
     );
   }
