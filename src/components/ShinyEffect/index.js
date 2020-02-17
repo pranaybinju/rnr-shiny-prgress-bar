@@ -1,6 +1,4 @@
 import React from 'react';
-import {View} from 'react-native';
-import PropTypes from 'prop-types';
 import Animated, {Easing} from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 const {
@@ -53,14 +51,9 @@ function runTranslationTiming(clock, value, dest) {
 }
 
 export default class ShinyEffect extends React.Component {
-  static defaultProps = {
-    height: 4,
-    bottomRowWidth: 0,
-  };
   constructor(props) {
     super(props);
-    this.progress = new Value(0);
-    this.animation = new Value(0);
+
     this.range = new Value(0);
     //  this.transX = new Animated.Value(0);
     this.transX = runTranslationTiming(
@@ -74,46 +67,90 @@ export default class ShinyEffect extends React.Component {
     this.range = interpolate(this.transX, {
       inputRange: [0, 5000],
       outputRange: [0, this.props.progress * this.props.width],
-      extrapolate: Animated.Extrapolate.CLAMP,
     });
   }
   componentDidUpdate() {
     this.range = interpolate(this.transX, {
       inputRange: [0, 5000],
       outputRange: [0, this.props.progress * this.props.width],
-      extrapolate: Animated.Extrapolate.CLAMP,
     });
   }
 
   render() {
-    // const translateStyle = concat(, '%');
     return (
-      <Animated.View
-        style={{
-          height: 50,
-          position: 'absolute',
-          bottom: 0,
-          right: 0,
-          left: 0,
-
-          width: (this.props.progress * 100) / 2,
-          transform: [{translateX: this.range}],
-        }}>
-        <LinearGradient
+      <>
+        <Animated.View
           style={{
-            width: this.props.progress * 100 * 0.9,
             height: 50,
-
+            borderRadius: 50,
+            position: 'absolute',
             bottom: 0,
-            right: 0,
-            left: 0,
-          }}
-          useAngle={true}
-          angle={315}
-          start={{x: 0, y: 0}}
-          end={{x: 0, y: 1}}
-          colors={['#ffffff05', '#ffffffB3']}></LinearGradient>
-      </Animated.View>
+            right: 10,
+            left: 10,
+            marginRight: 10,
+            transform: [{translateX: this.range}, {skewX: '20deg'}],
+          }}>
+          <LinearGradient
+            style={{
+              width: 50,
+              borderRadius: 50,
+              height: 50,
+              bottom: 0,
+              right: 0,
+              left: 0,
+            }}
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            colors={['#ffffff8f', '#ffffff8f']}></LinearGradient>
+        </Animated.View>
+
+        <Animated.View
+          style={{
+            height: 50,
+            borderRadius: 50,
+            position: 'absolute',
+            bottom: 0,
+            right: 60,
+            left: 60,
+            transform: [{translateX: this.range}, {skewX: '20deg'}],
+          }}>
+          <LinearGradient
+            style={{
+              width: 50,
+              borderRadius: 50,
+              height: 50,
+              bottom: 0,
+              right: 0,
+              left: 0,
+            }}
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            colors={['#ffffff8f', '#ffffff8f']}></LinearGradient>
+        </Animated.View>
+        <Animated.View
+          style={{
+            height: 50,
+            borderRadius: 50,
+            position: 'absolute',
+            bottom: 0,
+            right: 110,
+            left: 110,
+            transform: [{translateX: this.range}, {skewX: '20deg'}],
+          }}>
+          <LinearGradient
+            style={{
+              width: 50,
+              borderRadius: 50,
+              height: 50,
+              bottom: 0,
+              right: 0,
+              left: 0,
+            }}
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            colors={['#ffffff8f', '#ffffff8f']}></LinearGradient>
+        </Animated.View>
+      </>
     );
   }
 }

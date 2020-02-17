@@ -11,14 +11,7 @@ export default class Progressable extends Component {
     visible: true,
   };
 
-  fetchData = () => {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-  };
-
   componentDidMount() {
-    // this.fetchData();
     let progress = 0;
     this.timeout = setInterval(() => {
       this.setState(
@@ -43,7 +36,12 @@ export default class Progressable extends Component {
         {this.state.visible && (
           <ProgressBar
             progress={this.state.progress}
-            style={{margin: 20, borderColor: 'black', borderWidth: 2}}
+            style={{
+              margin: 20,
+              borderColor: 'black',
+              borderWidth: 2,
+              borderRadius: 50,
+            }}
           />
         )}
       </View>
@@ -59,5 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    borderRadius: 50,
   },
 });

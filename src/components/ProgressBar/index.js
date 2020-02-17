@@ -64,8 +64,8 @@ export default class ProgressBar extends React.Component {
 
   static defaultProps = {
     height: 50,
-    color: 'green',
-    borderRadius: 2,
+    color: '#00b33c',
+    borderRadius: 50,
     width: 400,
     backgroundColor: 'transparent',
   };
