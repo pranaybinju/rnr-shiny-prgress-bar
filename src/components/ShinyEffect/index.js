@@ -9,10 +9,7 @@ const {
   startClock,
   clockRunning,
   timing,
-  debug,
-  stopClock,
   block,
-  concat,
   interpolate,
 } = Animated;
 
@@ -66,13 +63,13 @@ export default class ShinyEffect extends React.Component {
   componentDidMount() {
     this.range = interpolate(this.transX, {
       inputRange: [0, 5000],
-      outputRange: [0, this.props.progress * this.props.width],
+      outputRange: [-150, this.props.progress * this.props.width],
     });
   }
   componentDidUpdate() {
     this.range = interpolate(this.transX, {
       inputRange: [0, 5000],
-      outputRange: [0, this.props.progress * this.props.width],
+      outputRange: [-150, this.props.progress * this.props.width],
     });
   }
 
@@ -80,7 +77,7 @@ export default class ShinyEffect extends React.Component {
     return (
       <Animated.View
         style={{
-          height: 50,
+          height: 35,
 
           position: 'absolute',
           bottom: 0,
@@ -91,16 +88,25 @@ export default class ShinyEffect extends React.Component {
         }}>
         <LinearGradient
           style={{
-            width: 50,
+            width: 150,
 
-            height: 50,
+            height: 35,
             bottom: 0,
             right: 0,
             left: 0,
           }}
+          useAngle={true}
+          angle={45}
+          angleCenter={{x: 0.5, y: 0.5}}
           start={{x: 0, y: 0}}
-          end={{x: 0, y: 1}}
-          colors={['#ffffff8f', '#ffffff8f']}></LinearGradient>
+          end={{x: 1, y: 0}}
+          colors={[
+            '#ffffff00',
+            '#ffffff20',
+            '#ffffffB3',
+            '#ffffff20',
+            '#ffffff00',
+          ]}></LinearGradient>
       </Animated.View>
     );
   }

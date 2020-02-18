@@ -49,8 +49,6 @@ export default class Progressable extends Component {
   }
 }
 
-const BOX_SIZE = 50;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
