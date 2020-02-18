@@ -25,7 +25,7 @@ function runTranslationTiming(clock, value, dest) {
   };
 
   const config = {
-    duration: 1000,
+    duration: 800,
     toValue: new Value(0),
     easing: Easing.linear,
   };
@@ -78,79 +78,30 @@ export default class ShinyEffect extends React.Component {
 
   render() {
     return (
-      <>
-        <Animated.View
-          style={{
-            height: 50,
-            borderRadius: 50,
-            position: 'absolute',
-            bottom: 0,
-            right: 10,
-            left: 10,
-            marginRight: 10,
-            transform: [{translateX: this.range}, {skewX: '20deg'}],
-          }}>
-          <LinearGradient
-            style={{
-              width: 50,
-              borderRadius: 50,
-              height: 50,
-              bottom: 0,
-              right: 0,
-              left: 0,
-            }}
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            colors={['#ffffff8f', '#ffffff8f']}></LinearGradient>
-        </Animated.View>
+      <Animated.View
+        style={{
+          height: 50,
 
-        <Animated.View
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+          left: 0,
+
+          transform: [{translateX: this.range}, {skewX: '20deg'}],
+        }}>
+        <LinearGradient
           style={{
+            width: 50,
+
             height: 50,
-            borderRadius: 50,
-            position: 'absolute',
             bottom: 0,
-            right: 60,
-            left: 60,
-            transform: [{translateX: this.range}, {skewX: '20deg'}],
-          }}>
-          <LinearGradient
-            style={{
-              width: 50,
-              borderRadius: 50,
-              height: 50,
-              bottom: 0,
-              right: 0,
-              left: 0,
-            }}
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            colors={['#ffffff8f', '#ffffff8f']}></LinearGradient>
-        </Animated.View>
-        <Animated.View
-          style={{
-            height: 50,
-            borderRadius: 50,
-            position: 'absolute',
-            bottom: 0,
-            right: 110,
-            left: 110,
-            transform: [{translateX: this.range}, {skewX: '20deg'}],
-          }}>
-          <LinearGradient
-            style={{
-              width: 50,
-              borderRadius: 50,
-              height: 50,
-              bottom: 0,
-              right: 0,
-              left: 0,
-            }}
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            colors={['#ffffff8f', '#ffffff8f']}></LinearGradient>
-        </Animated.View>
-      </>
+            right: 0,
+            left: 0,
+          }}
+          start={{x: 0, y: 0}}
+          end={{x: 0, y: 1}}
+          colors={['#ffffff8f', '#ffffff8f']}></LinearGradient>
+      </Animated.View>
     );
   }
 }
