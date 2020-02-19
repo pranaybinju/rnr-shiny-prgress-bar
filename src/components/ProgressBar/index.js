@@ -75,10 +75,6 @@ export default class ProgressBar extends React.Component {
   animation = new Value(0);
   transX = runTiming(this.clock, new Value(0), this.animation);
 
-  // componentDidMount() {
-  //   const progress = Math.max(Math.min(this.props.progress, 1), 0);
-  //   this.animation.setValue(progress * 100);
-  // }
   componentDidUpdate() {
     const progress = Math.max(Math.min(this.props.progress, 1), 0);
     this.animation.setValue(progress * 100);
