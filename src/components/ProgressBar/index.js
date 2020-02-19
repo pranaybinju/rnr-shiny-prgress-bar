@@ -75,6 +75,10 @@ export default class ProgressBar extends React.Component {
   animation = new Value(0);
   transX = runTiming(this.clock, new Value(0), this.animation);
 
+  // componentDidMount() {
+  //   const progress = Math.max(Math.min(this.props.progress, 1), 0);
+  //   this.animation.setValue(progress * 100);
+  // }
   componentDidUpdate() {
     const progress = Math.max(Math.min(this.props.progress, 1), 0);
     this.animation.setValue(progress * 100);
@@ -100,7 +104,10 @@ export default class ProgressBar extends React.Component {
         ]}>
         <Animated.View style={progressStyle}>
           {this.props.progress > 0 && (
-            <ShinyEffect width={400} progress={this.props.progress} />
+            <ShinyEffect
+              barWidth={this.props.width}
+              progress={parseFloat(this.props.progress)}
+            />
           )}
         </Animated.View>
       </View>

@@ -50,26 +50,23 @@ function runTranslationTiming(clock, value, dest) {
 export default class ShinyEffect extends React.Component {
   constructor(props) {
     super(props);
-
-    this.range = new Value(0);
-    //  this.transX = new Animated.Value(0);
+    this.range = new Animated.Value(0);
+    this.transX = new Animated.Value(0);
     this.transX = runTranslationTiming(
       new Clock(),
       new Value(0),
       new Value(5000),
     );
-  }
-
-  componentDidMount() {
     this.range = interpolate(this.transX, {
       inputRange: [0, 5000],
-      outputRange: [-150, this.props.progress * this.props.width],
+      outputRange: [-150, this.props.progress * this.props.barWidth],
     });
   }
+
   componentDidUpdate() {
     this.range = interpolate(this.transX, {
       inputRange: [0, 5000],
-      outputRange: [-150, this.props.progress * this.props.width],
+      outputRange: [-150, this.props.progress * this.props.barWidth],
     });
   }
 
@@ -78,18 +75,16 @@ export default class ShinyEffect extends React.Component {
       <Animated.View
         style={{
           height: 35,
-
           position: 'absolute',
           bottom: 0,
           right: 0,
           left: 0,
-
+          top: 0,
           transform: [{translateX: this.range}, {skewX: '20deg'}],
         }}>
         <LinearGradient
           style={{
             width: 150,
-
             height: 35,
             bottom: 0,
             right: 0,
