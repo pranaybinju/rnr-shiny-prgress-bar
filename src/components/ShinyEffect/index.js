@@ -16,14 +16,14 @@ const {
 function runTranslationTiming(clock, value, dest) {
   const state = {
     finished: new Value(0),
-    position: new Value(0),
+    position: value,
     time: new Value(0),
     frameTime: new Value(0),
   };
 
   const config = {
     duration: 800,
-    toValue: new Value(0),
+    toValue: dest,
     easing: Easing.linear,
   };
 
@@ -59,14 +59,14 @@ export default class ShinyEffect extends React.Component {
     );
     this.range = interpolate(this.transX, {
       inputRange: [0, 5000],
-      outputRange: [-150, this.props.progress * this.props.barWidth],
+      outputRange: [-500, this.props.progress * this.props.barWidth],
     });
   }
 
   componentDidUpdate() {
     this.range = interpolate(this.transX, {
       inputRange: [0, 5000],
-      outputRange: [-150, this.props.progress * this.props.barWidth],
+      outputRange: [-500, this.props.progress * this.props.barWidth],
     });
   }
 
