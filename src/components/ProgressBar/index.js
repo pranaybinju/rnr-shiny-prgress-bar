@@ -1,7 +1,7 @@
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
-import Animated, {Easing} from 'react-native-reanimated';
+import Animated, { Easing } from 'react-native-reanimated';
 import ShinyEffect from '../ShinyEffect';
 
 const {
@@ -102,7 +102,7 @@ export default class ProgressBar extends React.Component {
           {this.props.progress > 0 && (
             <ShinyEffect
               barWidth={this.props.width}
-              progress={parseFloat(this.props.progress)}
+              progress={this.props.progress}
             />
           )}
         </Animated.View>

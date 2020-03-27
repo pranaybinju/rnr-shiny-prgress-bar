@@ -1,5 +1,5 @@
 import React from 'react';
-import Animated, {Easing} from 'react-native-reanimated';
+import Animated, { Easing } from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 const {
   Clock,
@@ -40,7 +40,7 @@ function runTranslationTiming(clock, value, dest) {
     cond(state.finished, [
       set(state.finished, 0),
       set(state.time, 0),
-      set(state.position, value),
+      set(state.position, new Value(0)),
       set(state.frameTime, 0),
     ]),
     state.position,
@@ -80,7 +80,7 @@ export default class ShinyEffect extends React.Component {
           right: 0,
           left: 0,
           top: 0,
-          transform: [{translateX: this.range}, {skewX: '20deg'}],
+          transform: [{ translateX: this.range }, { skewX: '20deg' }],
         }}>
         <LinearGradient
           style={{
@@ -92,9 +92,9 @@ export default class ShinyEffect extends React.Component {
           }}
           useAngle={true}
           angle={45}
-          angleCenter={{x: 0.5, y: 0.5}}
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
+          angleCenter={{ x: 0.5, y: 0.5 }}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
           colors={[
             '#ffffff00',
             '#ffffff20',

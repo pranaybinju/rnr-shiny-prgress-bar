@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Button} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Button } from 'react-native';
 import ProgressBar from './src/components/ProgressBar';
 
 export default class Progressable extends Component {
@@ -27,7 +27,7 @@ export default class Progressable extends Component {
           }
         },
       );
-    }, 5000);
+    }, 1500);
   }
 
   render() {
