@@ -1,53 +1,51 @@
-import React, { Component } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 import ProgressBar from './src/components/ProgressBar';
 
-export default class Progressable extends Component {
-  static navigationOptions = {
-    title: 'ProgressBar Example',
-  };
-  state = {
-    progress: 0,
-    visible: true,
-  };
 
-  componentDidMount() {
-    let progress = 0;
-    this.timeout = setInterval(() => {
-      this.setState(
-        {
-          progress: progress.toFixed(1),
-        },
-        () => {
-          progress = progress + 0.1;
-          //progress = progress;
+const Progressable = () => {
+  const [progress, setProgress] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const timeout = useRef();
+  let prog = useRef(0)
 
-          if (progress > 1) {
-            clearInterval(this.timeout);
-          }
-        },
-      );
+  useEffect(() => {
+    const id = setInterval(() => {
+      setProgress(
+        prog.current.toFixed(1));
     }, 1500);
-  }
+    timeout.current = id;
+    return () => {
+      clearInterval(timeout.current);
+    };
+  });
 
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.state.visible && (
-          <ProgressBar
-            progress={this.state.progress}
-            style={{
-              margin: 20,
-              borderColor: 'black',
-              borderWidth: 2,
-              borderRadius: 50,
-            }}
-          />
-        )}
-      </View>
-    );
-  }
+  useEffect(() => {
+    prog.current = prog.current + 0.1;
+    if (progress > 1) {
+      clearInterval(timeout.current);
+    }
+  }, [progress])
+  return (
+    <View style={styles.container}>
+      {visible && (
+        <ProgressBar
+          progress={progress}
+          style={{
+            margin: 20,
+            borderColor: 'black',
+            borderWidth: 2,
+            borderRadius: 50,
+          }}
+        />
+      )}
+    </View>
+  );
+
 }
+Progressable.navigationOptions = {
+  title: 'ProgressBar Example',
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -58,3 +56,4 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
+export default Progressable

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import Animated, { Easing } from 'react-native-reanimated';
@@ -53,60 +53,59 @@ function runTiming(clock, value, dest) {
     state.position,
   ]);
 }
+let clock = new Clock();
+let animation = new Value(0);
 
-export default class ProgressBar extends React.Component {
-  static propTypes = {
-    progress: PropTypes.number.isRequired,
-    height: PropTypes.number,
-    color: PropTypes.string,
-    borderRadius: PropTypes.number,
+let transX = new Value(0);
+transX = runTiming(clock, new Value(0), animation);
+
+const ProgressBar = (props) => {
+  useEffect(() => {
+    const prog = Math.max(Math.min(props.progress, 1), 0);
+    animation.setValue(prog * 100);
+  }, [props.progress])
+
+  const progressStyle = {
+    width: concat(transX, '%'),
+    height: props.height,
+    backgroundColor: props.color,
+    borderRadius: props.borderRadius,
   };
-
-  static defaultProps = {
-    height: 35,
-    color: '#ff4d4d',
-    borderRadius: 50,
-    width: 400,
-    backgroundColor: 'transparent',
-  };
-
-  clock = new Clock();
-  progress = new Value(0);
-  animation = new Value(0);
-  transX = runTiming(this.clock, new Value(0), this.animation);
-
-  componentDidUpdate() {
-    const progress = Math.max(Math.min(this.props.progress, 1), 0);
-    this.animation.setValue(progress * 100);
-  }
-
-  render() {
-    const progressStyle = {
-      width: concat(this.transX, '%'),
-      height: this.props.height,
-      backgroundColor: this.props.color,
-      borderRadius: this.props.borderRadius,
-    };
-    return (
-      <View
-        style={[
-          {
-            backgroundColor: this.props.backgroundColor,
-            width: this.props.width,
-            padding: 5,
-            position: 'relative',
-          },
-          this.props.style,
-        ]}>
-        <Animated.View style={progressStyle}>
-          {this.props.progress > 0 && (
-            <ShinyEffect
-              barWidth={this.props.width}
-              progress={this.props.progress}
-            />
-          )}
-        </Animated.View>
-      </View>
-    );
-  }
+  return (
+    <View
+      style={[
+        {
+          backgroundColor: props.backgroundColor,
+          width: props.width,
+          padding: 5,
+          position: 'relative',
+        },
+        props.style,
+      ]}>
+      <Animated.View style={progressStyle}>
+        {props.progress > 0 && (
+          <ShinyEffect
+            barWidth={props.width}
+            progress={props.progress}
+          />
+        )}
+      </Animated.View>
+    </View>
+  );
 }
+
+ProgressBar.propTypes = {
+  progress: PropTypes.number.isRequired,
+  height: PropTypes.number,
+  color: PropTypes.string,
+  borderRadius: PropTypes.number,
+};
+
+ProgressBar.defaultProps = {
+  height: 35,
+  color: '#ff4d4d',
+  borderRadius: 50,
+  width: 400,
+  backgroundColor: 'transparent',
+};
+export default ProgressBar

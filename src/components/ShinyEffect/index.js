@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Animated, { Easing } from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 const {
@@ -46,63 +46,62 @@ function runTranslationTiming(clock, value, dest) {
     state.position,
   ]);
 }
+//let range = new Animated.Value(0);
+let transX = new Animated.Value(0);
+transX = runTranslationTiming(
+  new Clock(),
+  new Value(0),
+  new Value(5000),
+);
 
-export default class ShinyEffect extends React.Component {
-  constructor(props) {
-    super(props);
-    this.range = new Animated.Value(0);
-    this.transX = new Animated.Value(0);
-    this.transX = runTranslationTiming(
-      new Clock(),
-      new Value(0),
-      new Value(5000),
-    );
-    this.range = interpolate(this.transX, {
+const ShinyEffect = (props) => {
+
+  let range = useRef(new Value(0));
+  range.current = interpolate(transX, {
+    inputRange: [0, 5000],
+    outputRange: [-500, props.progress * props.barWidth],
+  });
+
+  useEffect(() => {
+    range.current = interpolate(transX, {
       inputRange: [0, 5000],
-      outputRange: [-500, this.props.progress * this.props.barWidth],
+      outputRange: [-500, props.progress * props.barWidth],
     });
-  }
+  }, [props.progress])
 
-  componentDidUpdate() {
-    this.range = interpolate(this.transX, {
-      inputRange: [0, 5000],
-      outputRange: [-500, this.props.progress * this.props.barWidth],
-    });
-  }
-
-  render() {
-    return (
-      <Animated.View
+  return (
+    <Animated.View
+      style={{
+        height: 35,
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0,
+        top: 0,
+        transform: [{ translateX: range.current }, { skewX: '20deg' }],
+      }}>
+      <LinearGradient
         style={{
+          width: 150,
           height: 35,
-          position: 'absolute',
           bottom: 0,
           right: 0,
           left: 0,
-          top: 0,
-          transform: [{ translateX: this.range }, { skewX: '20deg' }],
-        }}>
-        <LinearGradient
-          style={{
-            width: 150,
-            height: 35,
-            bottom: 0,
-            right: 0,
-            left: 0,
-          }}
-          useAngle={true}
-          angle={45}
-          angleCenter={{ x: 0.5, y: 0.5 }}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          colors={[
-            '#ffffff00',
-            '#ffffff20',
-            '#ffffffB3',
-            '#ffffff20',
-            '#ffffff00',
-          ]}></LinearGradient>
-      </Animated.View>
-    );
-  }
+        }}
+        useAngle={true}
+        angle={45}
+        angleCenter={{ x: 0.5, y: 0.5 }}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        colors={[
+          '#ffffff00',
+          '#ffffff20',
+          '#ffffffB3',
+          '#ffffff20',
+          '#ffffff00',
+        ]}></LinearGradient>
+    </Animated.View>
+  );
 }
+
+export default ShinyEffect
