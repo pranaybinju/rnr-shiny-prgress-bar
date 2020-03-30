@@ -40,7 +40,7 @@ function runTranslationTiming(clock, value, dest) {
     cond(state.finished, [
       set(state.finished, 0),
       set(state.time, 0),
-      set(state.position, new Value(0)),
+      set(state.position, 0),
       set(state.frameTime, 0),
     ]),
     state.position,
